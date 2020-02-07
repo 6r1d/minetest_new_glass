@@ -1,14 +1,24 @@
 # New glass
 
-This mod provides a glowing version of steel framed obsidian glass node from a ``framedglass`` mod.
-Possibly it'll add more types of glass later. Maybe not.
+This mod provides a glowing version of steel framed obsidian glass node from
+a ``framedglass`` mod. It supports many colors.
 
-TODO
-====
+Probably it will support the colored versions of a node like ``dark_glass`` from
+``scifi_nodes`` mod. Maybe not.
 
-More colors
------------
+Screenshots
+===========
 
-* Check if [framedglass](https://github.com/minetest-mods/framedglass/blob/master/init.lua) supports dyes on PandoraBox.
-* Learn how [stained glass](https://github.com/minetest-mods/stained_glass/blob/d1b0278c68351e1f0a19ef692ff95e98e3d23947/init.lua) is structured for the definition of differently colored blocks
-* Try and make something similar to the different colors of ``dark_glass`` from ``scifi_nodes``
+![](doc/screenshot.png)
+
+Installation
+============
+
+First of all, install ``unifieddyes`` and ``framedglass`` mods,
+these are required.
+
+Move this mod directory at your minetest mod directory.
+For example, in Linux it's ``/home/username/.minetest/mods/new_glass``.
+
+You should be able to see ``init.lua`` file in this new_glass directory,
+to be clear.
