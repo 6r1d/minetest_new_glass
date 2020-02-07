@@ -1,7 +1,7 @@
 # New glass
 
-This mod provides glowing steel framed obsidian glass.
-Maybe it'll add more types of glass later. Maybe not.
+This mod provides a glowing version of steel framed obsidian glass node from a ``framedglass`` mod.
+Possibly it'll add more types of glass later. Maybe not.
 
 TODO
 ====
