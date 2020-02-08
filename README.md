@@ -3,19 +3,24 @@
 This mod provides a glowing version of steel framed obsidian glass node from
 a ``framedglass`` mod. It supports many colors.
 
-Probably it will support the colored versions of a node like ``dark_glass`` from
-``scifi_nodes`` mod. Maybe not.
+It also adds nodes, similar to a colored version of ``dark_glass`` from
+``scifi_nodes`` mod.
 
 Screenshots
 ===========
 
 ![](doc/screenshot.png)
 
+![](doc/screenshot_2.png)
+
 Installation
 ============
 
 First of all, install ``unifieddyes`` and ``framedglass`` mods,
-these are required.
+these are required for this mod to work.
+
+These are installed from archives and metod is the same as
+this mod's installation.
 
 Move this mod directory at your minetest mod directory.
 For example, in Linux it's ``/home/username/.minetest/mods/new_glass``.
