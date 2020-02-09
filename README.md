@@ -27,3 +27,10 @@ For example, in Linux it's ``/home/username/.minetest/mods/new_glass``.
 
 You should be able to see ``init.lua`` file in this new_glass directory,
 to be clear.
+
+License
+=======
+
+Copyright (C) 2020 Victor Gridnevsky (6r1d) and contributors. Based on [framed glass](https://github.com/minetest-mods/framedglass) mod by Maciej Kasatkin (RealBadAngel).
+
+All code and textures are licensed under the GNU LGPLv2+.
