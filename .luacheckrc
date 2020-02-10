@@ -5,6 +5,7 @@ globals = {
   "minetest",
   "framedglass",
   "unifieddyes",
+  "new_glass"
 }
 
 read_globals = {
