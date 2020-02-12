@@ -39,7 +39,10 @@ minetest.register_node("new_glass:smoked_glass_tinted", {
   airbrush_replacement_node = "new_glass:smoked_glass_tinted",
   is_ground_content = true,
   alpha = 180,
-  groups = {cracky = 3, oddly_breakable_by_hand = 3, ud_param2_colorable = 1},
+  groups = {
+    cracky = 3, oddly_breakable_by_hand = 3, ud_param2_colorable = 1,
+    not_in_creative_inventory = 1
+  },
   sounds = default.node_sound_glass_defaults(),
   on_dig = unifieddyes.on_dig,
 })
