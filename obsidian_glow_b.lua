@@ -6,7 +6,7 @@
 minetest.register_node("new_glass:ultra_steel_framed_obsidian_glass", {
   description = "Ultra Steel-framed Obsidian Glass",
   drawtype = "glasslike_framed",
-  tiles = {"framedglass_steel_frame.png", "framedglass_glass_face_clean.png"},
+  tiles = {"steel_frame.png", "framedglass_glass_face_clean.png"},
   paramtype = "light",
   sunlight_propagates = true,
   palette = "unifieddyes_palette_extended.png",
@@ -22,7 +22,7 @@ minetest.register_node("new_glass:ultra_steel_framed_obsidian_glass_tinted", {
   description = "Ultra Steel-framed Obsidian Glass (tinted)",
   drawtype = "glasslike_framed",
   tiles = {
-    { name = "framedglass_steel_frame.png", color = "white" },
+    { name = "steel_frame.png", color = "white" },
     "newglass_base.png",
   },
   paramtype = "light",
