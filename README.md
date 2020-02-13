@@ -1,5 +1,7 @@
 # New glass
 
+![](https://github.com/6r1d/minetest_new_glass/workflows/docker-compose-validate/badge.svg)
+
 This mod provides a glowing version of steel framed obsidian glass node from
 a ``framedglass`` mod. It supports many colors.
 
