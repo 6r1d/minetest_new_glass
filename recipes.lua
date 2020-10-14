@@ -9,7 +9,7 @@ if minetest.get_modpath("moreblocks") then
       "moreblocks:clean_glass", "default:mese_crystal"
     }
   })
-	-- Make a mese lamp from glow glas, return a torch
+  -- Make a mese lamp from glow glas, return a torch
   minetest.register_craft({
     type = "shapeless",
     output = "default:meselamp",
