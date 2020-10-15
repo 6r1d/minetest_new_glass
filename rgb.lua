@@ -66,6 +66,7 @@ local on_dig_rgb = function(pos, node, digger)
     if not digger then return end
     -- Retrieve metadata
     local inv = digger:get_inventory()
+    -- luacheck: globals ItemStack
     local item = ItemStack("new_glass:rgb_off")
     -- Give player an item or drop it
     if inv:room_for_item("main", item) then
