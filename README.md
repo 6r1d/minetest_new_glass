@@ -48,6 +48,20 @@ Finally, to change the block color:
 
 ```digiline_send('rgb', { color = math.random(0, 255) })```
 
+RGB: randomizing glow and color
+-------------------------------
+
+```lua
+interrupt(1)
+digiline_send(
+    'rgb',
+    {
+        switch = math.random(0,1),
+        color = math.random(0, 255)
+    }
+)
+```
+
 License
 =======
 
