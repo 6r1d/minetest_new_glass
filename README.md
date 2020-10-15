@@ -30,6 +30,24 @@ For example, in Linux it's ``/home/username/.minetest/mods/new_glass``.
 You should be able to see ``init.lua`` file in this new_glass directory,
 to be clear.
 
+Usage
+=====
+
+RGB leds
+--------
+
+To reset a block state, send this digiline message:
+
+```digiline_send('rgb', { reset = math.random(0, 1) })```
+
+To switch glow:
+
+```digiline_send('rgb', { switch = math.random(0, 1) })```
+
+Finally, to change the block color:
+
+```digiline_send('rgb', { color = math.random(0, 255) })```
+
 License
 =======
 
