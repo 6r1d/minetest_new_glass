@@ -65,7 +65,6 @@ local on_dig_rgb = function(pos, node, digger)
     -- No player - no drop, may be incompatible with digtrons
     if not digger then return end
     -- Retrieve metadata
-    local playername = digger:get_player_name()
     local inv = digger:get_inventory()
     local item = ItemStack("new_glass:rgb_off")
     -- Give player an item or drop it
