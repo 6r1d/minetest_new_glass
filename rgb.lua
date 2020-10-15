@@ -1,36 +1,35 @@
 local digiline_rules = {
-	{x =  1, y =  0,z =  0,},
-	{x =  2, y =  0,z =  0,},
-	{x = -1, y =  0,z =  0,},
-	{x = -2, y =  0,z =  0,},
-	{x =  0, y =  1,z =  0,},
-	{x =  0, y =  2,z =  0,},
-	{x =  0, y = -1,z =  0,},
-	{x =  0, y = -2,z =  0,},
-	{x =  0, y =  0,z =  1,},
-	{x =  0, y =  0,z =  2,},
-	{x =  0, y =  0,z = -1,},
-	{x =  0, y =  0,z = -2,},
+  {x =  1, y =  0,z =  0,},
+  {x =  2, y =  0,z =  0,},
+  {x = -1, y =  0,z =  0,},
+  {x = -2, y =  0,z =  0,},
+  {x =  0, y =  1,z =  0,},
+  {x =  0, y =  2,z =  0,},
+  {x =  0, y = -1,z =  0,},
+  {x =  0, y = -2,z =  0,},
+  {x =  0, y =  0,z =  1,},
+  {x =  0, y =  0,z =  2,},
+  {x =  0, y =  0,z = -1,},
+  {x =  0, y =  0,z = -2,},
 }
 
 local digiline_action = function(pos, node, channel, msg)
-	local setchannel = minetest.get_meta(pos):get_string("channel")
-    -- Ignore other digiline channels
-    if channel ~= setchannel or type(msg) ~= "table" then return end
-    -- Enable / disable glow
-		if (msg.switch ~= nil) and (type(msg.switch) == "string" or type(msg.switch) == "number") then
-		  if msg.switch == 'on' or msg.switch == 1 then
-        minetest.swap_node(pos, {name = "new_glass:rgb_on" })
-      else
-        minetest.swap_node(pos, {name = "new_glass:rgb_off" })
-		  end
-		end
-    -- Set color
-	  if (msg.color ~= nil) and (type(msg.color) == "string" or type(msg.color) == "number") then
-			local meta = minetest.get_meta(pos)
-      node.param2 = msg.color
-      minetest.swap_node(pos, node)
-		end
+  local setchannel = minetest.get_meta(pos):get_string("channel")
+  -- Ignore other digiline channels
+  if channel ~= setchannel or type(msg) ~= "table" then return end
+  -- Enable / disable glow
+  if (msg.switch ~= nil) and (type(msg.switch) == "string" or type(msg.switch) == "number") then
+    if msg.switch == 'on' or msg.switch == 1 then
+      minetest.swap_node(pos, {name = "new_glass:rgb_on" })
+    else
+      minetest.swap_node(pos, {name = "new_glass:rgb_off" })
+    end
+  end
+  -- Set color
+  if (msg.color ~= nil) and (type(msg.color) == "string" or type(msg.color) == "number") then
+    node.param2 = msg.color
+    minetest.swap_node(pos, node)
+  end
 end
 
 local handle_construct = function(pos)
@@ -66,19 +65,19 @@ local register_rgb_glass = function(node_name, light_value)
     on_dig = unifieddyes.on_dig,
     light_source = light_value,
     -- Set formspec for digiline channel selection
-  	on_construct = handle_construct,
+    on_construct = handle_construct,
     -- Update digiline channel
-  	on_receive_fields = handle_receive_fields,
+    on_receive_fields = handle_receive_fields,
     -- Digiline settings
-  	digiline = {
-  		receptor = {},
-  		wire = {
-  			rules = digiline_rules,
-  		},
-  		effector = {
-  			action = digiline_action
-  		},
-  	},
+    digiline = {
+    receptor = {},
+      wire = {
+        rules = digiline_rules,
+      },
+      effector = {
+        action = digiline_action
+      },
+    },
   })
   -- Register dyes
   unifieddyes.register_color_craft({
@@ -90,11 +89,11 @@ local register_rgb_glass = function(node_name, light_value)
   })
 end
 
-if minetest.get_modpath("digilines") then
+if minetest.get_modpath("unifieddyes") and minetest.get_modpath("digilines") then
   register_rgb_glass("new_glass:rgb_off", 0)
   register_rgb_glass("new_glass:rgb_on",  14)
   -- Forcibly register RGB craftitem
-  minetest.register_craftitem("new_glass:rgb_off", {
-	  description = "RGB glass",
-  })
+  --minetest.register_craftitem("new_glass:rgb_off", {
+  --  description = "RGB glass",
+  --})
 end
