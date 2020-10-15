@@ -45,7 +45,7 @@ if minetest.get_modpath("building_blocks") then
 end
 
 -- Let's allow using both super and ultra glass in this recipe
-if minetest.get_modpath("digilines") then
+if minetest.get_modpath("digilines") and minetest.get_modpath("mesecons_luacontroller") then
   minetest.register_craft({
   	output = "new_glass:rgb_off",
   	recipe = {
