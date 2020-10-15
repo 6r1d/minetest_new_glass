@@ -45,21 +45,23 @@ if minetest.get_modpath("building_blocks") then
 end
 
 -- Let's allow using both super and ultra glass in this recipe
-if minetest.get_modpath("digilines") and minetest.get_modpath("mesecons_luacontroller") then
+if minetest.get_modpath("unifieddyes") and
+   minetest.get_modpath("digilines") and
+   minetest.get_modpath("mesecons_luacontroller") then
   minetest.register_craft({
-  	output = "new_glass:rgb_off",
-  	recipe = {
-  		{"new_glass:ultra_steel_framed_obsidian_glass"},
-  		{"mesecons_luacontroller:luacontroller0000"},
-  		{"digilines:wire_std_00000000"}
-  	}
+    output = "new_glass:rgb_off",
+    recipe = {
+      {"new_glass:ultra_steel_framed_obsidian_glass"},
+      {"mesecons_luacontroller:luacontroller0000"},
+      {"digilines:wire_std_00000000"}
+    }
   })
   minetest.register_craft({
-  	output = "new_glass:rgb_off",
-  	recipe = {
-  		{"new_glass:super_steel_framed_obsidian_glass"},
-  		{"mesecons_luacontroller:luacontroller0000"},
-  		{"digilines:wire_std_00000000"}
-  	}
+    output = "new_glass:rgb_off",
+    recipe = {
+      {"new_glass:super_steel_framed_obsidian_glass"},
+      {"mesecons_luacontroller:luacontroller0000"},
+      {"digilines:wire_std_00000000"}
+    }
   })
 end
