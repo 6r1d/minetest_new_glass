@@ -39,7 +39,7 @@ minetest.register_node("new_glass:ultra_steel_framed_obsidian_glass_tinted", {
   },
   sounds = default.node_sound_glass_defaults(),
   on_dig = unifieddyes.on_dig,
-  light_source = 15,
+  light_source = 14,
 })
 
 -- Register coloring for a hard glowing tinted glass

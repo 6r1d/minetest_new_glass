@@ -33,6 +33,16 @@ local digiline_action = function(pos, node, channel, msg)
 		end
 end
 
+local handle_construct = function(pos)
+    local meta = minetest.get_meta(pos)
+    meta:set_string("formspec","field[channel;Channel;${channel}")
+end
+
+local handle_receive_fields = function(pos, formname, fields, sender)
+    local meta = minetest.get_meta(pos)
+    if fields.channel then meta:set_string("channel", fields.channel) end
+end
+
 local register_rgb_glass = function(node_name, light_value)
   minetest.register_node(node_name, {
     description = "RGB Glass",
@@ -47,7 +57,6 @@ local register_rgb_glass = function(node_name, light_value)
     palette = "unifieddyes_palette_extended.png",
     inventory_image = minetest.inventorycube("framedglass_glass_face_inv_static.png"),
     airbrush_replacement_node = "new_glass:ultra_steel_framed_obsidian_glass_tinted",
-    is_ground_content = true,
     use_texture_alpha = true,
     groups = {
       cracky = 3, oddly_breakable_by_hand = 3, ud_param2_colorable = 1,
@@ -57,15 +66,9 @@ local register_rgb_glass = function(node_name, light_value)
     on_dig = unifieddyes.on_dig,
     light_source = light_value,
     -- Set formspec for digiline channel selection
-  	on_construct = function(pos)
-  		local meta = minetest.get_meta(pos)
-  		meta:set_string("formspec","field[channel;Channel;${channel}")
-  	end,
+  	on_construct = handle_construct,
     -- Update digiline channel
-  	on_receive_fields = function(pos, formname, fields, sender)
-  		local meta = minetest.get_meta(pos)
-  		if fields.channel then meta:set_string("channel", fields.channel) end
-  	end,
+  	on_receive_fields = handle_receive_fields,
     -- Digiline settings
   	digiline = {
   		receptor = {},
@@ -89,5 +92,9 @@ end
 
 if minetest.get_modpath("digilines") then
   register_rgb_glass("new_glass:rgb_off", 0)
-  register_rgb_glass("new_glass:rgb_on",  15)
+  register_rgb_glass("new_glass:rgb_on",  14)
+  -- Forcibly register RGB craftitem
+  minetest.register_craftitem("new_glass:rgb_off", {
+	  description = "RGB glass",
+  })
 end
