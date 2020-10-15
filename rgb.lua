@@ -105,6 +105,7 @@ local register_rgb_glass = function(node_name, light_value)
     -- Update digiline channel
     on_receive_fields = handle_receive_fields,
     -- Digiline settings
+    _digistuff_channelcopier_fieldname = "channel",
     digiline = {
     receptor = {},
       wire = {
@@ -129,3 +130,4 @@ if minetest.get_modpath("unifieddyes") and minetest.get_modpath("digilines") the
   register_rgb_glass("new_glass:rgb_off", 0)
   register_rgb_glass("new_glass:rgb_on",  14)
 end
+
