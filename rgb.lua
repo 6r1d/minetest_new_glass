@@ -1,3 +1,13 @@
+-- RGB glass block
+--
+-- Control options:
+-- Reset a block:
+--   digiline_send('rgb', { reset = math.random(0, 1) })
+-- Switch glow:
+--   digiline_send('rgb', { switch = math.random(0, 1) })
+-- Change color:
+--   digiline_send('rgb', { color = math.random(0, 255) })
+
 local digiline_rules = {
   {x =  1, y =  0,z =  0,},
   {x =  2, y =  0,z =  0,},
