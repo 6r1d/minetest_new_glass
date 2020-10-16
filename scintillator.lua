@@ -37,7 +37,9 @@ local register_scintillator = function(node_name, texture, light_value)
     light_source = light_value,
     is_ground_content = true,
     on_construct = handle_construct,
-    on_timer = scintillator_timer
+    on_timer = scintillator_timer,
+    -- TODO set as 100 or lower in fragment-sized version
+    radiation_resistance = 500
   })
 end
 
