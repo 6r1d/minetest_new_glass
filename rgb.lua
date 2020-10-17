@@ -23,10 +23,29 @@ local digiline_rules = {
   {x =  0, y =  0,z = -2,},
 }
 
-local digiline_action = function(pos, node, channel, msg)
-  local setchannel = minetest.get_meta(pos):get_string("channel")
+local digiline_action = function(pos, node, channel, mixed_msg)
+  local setchannel = minetest.get_meta(pos):get_string('channel')
   -- Ignore other digiline channels
-  if channel ~= setchannel or type(msg) ~= "table" then return end
+  if channel ~= setchannel then return end
+  local msg_type = type(mixed_msg)
+  local msg = {}
+  if 'string' == msg_type then
+    local s = mixed_msg:lower()
+    if 'on' == s then
+      msg.switch = 1
+    elseif 'off' == s then
+      msg.switch = 0
+    elseif 'reset' == s then
+      msg.reset = 1
+    elseif '#' == s:sub(1, 1)
+      -- TODO:
+      --msg.color = translatedColour(s)
+    end
+  elseif 'table' == msg_type then
+    msg = mixed_msg
+  else
+    return
+  end
   -- Set color
   if (msg.color ~= nil) and (type(msg.color) == "string" or type(msg.color) == "number") then
     node.param2 = msg.color
