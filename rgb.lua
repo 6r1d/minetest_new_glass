@@ -46,25 +46,33 @@ local digiline_action = function(pos, node, channel, mixed_msg)
   else
     return
   end
+  local changed = false
   -- Set color
   if (msg.color ~= nil) and (type(msg.color) == 'string' or type(msg.color) == 'number') then
     node.param2 = msg.color
-    minetest.swap_node(pos, node)
+    changed = true
   end
   -- Enable / disable glow
   if nil ~= msg.switch then
     if 0 == msg.switch then
-      minetest.swap_node(pos, {name = 'new_glass:rgb_off', param2 = node.param2 })
+      changed = true
+      node.name = 'new_glass:rgb_off'
     else
-      minetest.swap_node(pos, {name = 'new_glass:rgb_on', param2 = node.param2 })
+      changed = true
+      node.name = 'new_glass:rgb_on'
     end
   end
   -- Reset handler (int)
   if msg.reset ~= nil and type(msg.reset) == 'number' then
     if msg.reset >= 1 then
+      changed = true
       -- I am hardcoding a param2, because for some reason it has a default value
-      minetest.swap_node(pos, {name = 'new_glass:rgb_off', param2 = 240 })
+      node = { name = 'new_glass:rgb_off', param2 = 240 }
     end
+  end
+
+  if changed then
+    minetest.swap_node(pos, node)
   end
 end
 
