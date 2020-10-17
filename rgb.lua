@@ -1,13 +1,3 @@
--- RGB glass block
---
--- Control options:
--- Reset a block:
---   digiline_send('rgb', { reset = math.random(0, 1) })
--- Switch glow:
---   digiline_send('rgb', { switch = math.random(0, 1) })
--- Change color:
---   digiline_send('rgb', { color = math.random(0, 255) })
-
 local digiline_rules = {
   {x =  1, y =  0,z =  0,},
   {x =  2, y =  0,z =  0,},
@@ -33,15 +23,13 @@ local digiline_action = function(pos, node, channel, msg)
     minetest.swap_node(pos, node)
   end
   -- Enable / disable glow
-  if (msg.switch ~= nil) and (type(msg.switch) == "string" or type(msg.switch) == "number") then
-    if msg.switch == 'on' or msg.switch >= 1 then
-      minetest.swap_node(pos, {name = "new_glass:rgb_on", param2 = node.param2 })
-    else
-      minetest.swap_node(pos, {name = "new_glass:rgb_off", param2 = node.param2 })
-    end
+  if msg.switch ~= nil then
+    minetest.swap_node(pos, {name = "new_glass:rgb_on", param2 = node.param2 })
+  else
+    minetest.swap_node(pos, {name = "new_glass:rgb_off", param2 = node.param2 })
   end
   -- Reset handler (int)
-  if (msg.reset ~= nil) and (type(msg.reset) == "number") then
+  if msg.reset ~= nil and type(msg.reset) == "number" then
     if msg.reset >= 1 then
       -- I am hardcoding a param2, because for some reason it has a default value
       minetest.swap_node(pos, {name = "new_glass:rgb_off", param2 = 240 })
@@ -62,8 +50,17 @@ end
 -- Override for unifieddyes implementation of on_dig,
 -- because I was not able to use it.
 local on_dig_rgb = function(pos, node, digger)
-    -- No player - no drop, may be incompatible with digtrons
+    -- No player - no drop
     if not digger then return end
+    -- Cancel digging on protected nodes
+    local playername = digger:get_player_name()
+    local player_has_no_bypass = not minetest.check_player_privs(
+      playername, {protection_bypass=true}
+    )
+    if minetest.is_protected(pos, playername) and player_has_no_bypass then
+        minetest.record_protection_violation(pos, playername)
+        return
+    end
     -- Retrieve metadata
     local inv = digger:get_inventory()
     -- luacheck: globals ItemStack
