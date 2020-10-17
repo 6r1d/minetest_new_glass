@@ -14,39 +14,39 @@ local digiline_rules = {
 }
 
 local digiline_action = function(pos, node, channel, msg)
-  local setchannel = minetest.get_meta(pos):get_string("channel")
+  local setchannel = minetest.get_meta(pos):get_string('channel')
   -- Ignore other digiline channels
-  if channel ~= setchannel or type(msg) ~= "table" then return end
+  if channel ~= setchannel or type(msg) ~= 'table' then return end
   -- Set color
-  if (msg.color ~= nil) and (type(msg.color) == "string" or type(msg.color) == "number") then
+  if (msg.color ~= nil) and (type(msg.color) == 'string' or type(msg.color) == 'number') then
     node.param2 = msg.color
     minetest.swap_node(pos, node)
   end
   -- Enable / disable glow
   if nil ~= msg.switch then
     if 0 == msg.switch then
-      minetest.swap_node(pos, {name = "new_glass:rgb_off", param2 = node.param2 })
+      minetest.swap_node(pos, {name = 'new_glass:rgb_off', param2 = node.param2 })
     else
-      minetest.swap_node(pos, {name = "new_glass:rgb_on", param2 = node.param2 })
+      minetest.swap_node(pos, {name = 'new_glass:rgb_on', param2 = node.param2 })
     end
   end
   -- Reset handler (int)
-  if msg.reset ~= nil and type(msg.reset) == "number" then
+  if msg.reset ~= nil and type(msg.reset) == 'number' then
     if msg.reset >= 1 then
       -- I am hardcoding a param2, because for some reason it has a default value
-      minetest.swap_node(pos, {name = "new_glass:rgb_off", param2 = 240 })
+      minetest.swap_node(pos, {name = 'new_glass:rgb_off', param2 = 240 })
     end
   end
 end
 
 local handle_construct = function(pos)
     local meta = minetest.get_meta(pos)
-    meta:set_string("formspec","field[channel;Channel;${channel}")
+    meta:set_string('formspec', 'field[channel;Channel;${channel}')
 end
 
 local handle_receive_fields = function(pos, formname, fields, sender)
     local meta = minetest.get_meta(pos)
-    if fields.channel then meta:set_string("channel", fields.channel) end
+    if fields.channel then meta:set_string('channel', fields.channel) end
 end
 
 -- Override for unifieddyes implementation of on_dig,
@@ -66,10 +66,10 @@ local on_dig_rgb = function(pos, node, digger)
     -- Retrieve metadata
     local inv = digger:get_inventory()
     -- luacheck: globals ItemStack
-    local item = ItemStack("new_glass:rgb_off")
+    local item = ItemStack('new_glass:rgb_off')
     -- Give player an item or drop it
-    if inv:room_for_item("main", item) then
-      inv:add_item("main", item)
+    if inv:room_for_item('main', item) then
+      inv:add_item('main', item)
     else
       minetest.item_drop(item, digger, pos)
     end
@@ -78,18 +78,18 @@ end
 
 local register_rgb_glass = function(node_name, light_value)
   minetest.register_node(node_name, {
-    description = "RGB Glass",
-    drawtype = "glasslike_framed",
+    description = 'RGB Glass',
+    drawtype = 'glasslike_framed',
     tiles = {
-      { name = "steel_frame.png", color = "white" },
-      "newglass_base.png",
+      { name = 'steel_frame.png', color = 'white' },
+      'newglass_base.png'
     },
-    paramtype = "light",
-    paramtype2 = "color",
+    paramtype = 'light',
+    paramtype2 = 'color',
     sunlight_propagates = true,
-    palette = "unifieddyes_palette_extended.png",
-    inventory_image = minetest.inventorycube("framedglass_glass_face_inv_static.png"),
-    airbrush_replacement_node = "new_glass:ultra_steel_framed_obsidian_glass_tinted",
+    palette = 'unifieddyes_palette_extended.png',
+    inventory_image = minetest.inventorycube('framedglass_glass_face_inv_static.png'),
+    airbrush_replacement_node = 'new_glass:ultra_steel_framed_obsidian_glass_tinted',
     use_texture_alpha = true,
     groups = {
       cracky = 3,
@@ -104,7 +104,7 @@ local register_rgb_glass = function(node_name, light_value)
     -- Update digiline channel
     on_receive_fields = handle_receive_fields,
     -- Digiline settings
-    _digistuff_channelcopier_fieldname = "channel",
+    _digistuff_channelcopier_fieldname = 'channel',
     digiline = {
     receptor = {},
       wire = {
@@ -118,15 +118,15 @@ local register_rgb_glass = function(node_name, light_value)
   -- Register dyes
   unifieddyes.register_color_craft({
     output = node_name,
-    type = "shapeless",
-    palette = "extended",
+    type = 'shapeless',
+    palette = 'extended',
     neutral_node = node_name,
-    recipe = { "NEUTRAL_NODE", "MAIN_DYE" }
+    recipe = { 'NEUTRAL_NODE', 'MAIN_DYE' }
   })
 end
 
-if minetest.get_modpath("unifieddyes") and minetest.get_modpath("digilines") then
-  register_rgb_glass("new_glass:rgb_off", 0)
-  register_rgb_glass("new_glass:rgb_on",  14)
+if minetest.get_modpath('unifieddyes') and minetest.get_modpath('digilines') then
+  register_rgb_glass('new_glass:rgb_off', 0)
+  register_rgb_glass('new_glass:rgb_on',  14)
 end
 
