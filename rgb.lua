@@ -37,7 +37,7 @@ local digiline_action = function(pos, node, channel, mixed_msg)
       msg.switch = 0
     elseif 'reset' == s then
       msg.reset = 1
-    elseif '#' == s:sub(1, 1) then
+    --elseif '#' == s:sub(1, 1) then
       -- TODO:
       --msg.color = translatedColour(s)
     end
