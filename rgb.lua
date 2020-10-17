@@ -23,10 +23,12 @@ local digiline_action = function(pos, node, channel, msg)
     minetest.swap_node(pos, node)
   end
   -- Enable / disable glow
-  if msg.switch ~= nil then
-    minetest.swap_node(pos, {name = "new_glass:rgb_on", param2 = node.param2 })
-  else
-    minetest.swap_node(pos, {name = "new_glass:rgb_off", param2 = node.param2 })
+  if nil ~= msg.switch then
+    if 0 == msg.switch then
+      minetest.swap_node(pos, {name = "new_glass:rgb_off", param2 = node.param2 })
+    else
+      minetest.swap_node(pos, {name = "new_glass:rgb_on", param2 = node.param2 })
+    end
   end
   -- Reset handler (int)
   if msg.reset ~= nil and type(msg.reset) == "number" then
