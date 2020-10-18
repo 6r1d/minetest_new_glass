@@ -15,6 +15,30 @@ local digiline_rules = {
   {x =  0, y =  0,z = -2,},
 }
 
+--local translatedColour(s)
+-- SX's code:
+-- s = "#a1b2c3" -- dec 161, 178, 195
+-- r = tonumber("0x" .. s:sub(2,3))
+-- g = tonumber("0x" .. s:sub(4,5))
+-- b = tonumber("0x" .. s:sub(6,7))
+--
+-- Issue: we have colors marked by integers from 0 to 255, i.e.
+-- in this example we get 161 + 178 + 195, which is 534,
+-- outside of 0-255 boundaries.
+--
+-- Notes:
+--   unifieddyes mod seem to have a unique approach to coloring, closest to HSV
+--   first five colors seem to be completely useless, but might be bright shades of white
+--   unifieddyes.HUES_EXTENDED contains 24 hues for 256 color palette
+--   unifieddyes.shade_crafts contains 10 shades a hue can take
+--   last ten colors seem to be the color values from brightest to darkest
+--
+-- Proposed solution:
+--   use SX's RGB code to obtain R,G,B value.
+--   find the hue, closest to the given R, G, B values, it will give us a range inside 256-color palette
+--   apply saturation and value
+--end
+
 local digiline_action = function(pos, node, channel, mixed_msg)
   local setchannel = minetest.get_meta(pos):get_string('channel')
   -- Ignore other digiline channels
@@ -46,11 +70,10 @@ local digiline_action = function(pos, node, channel, mixed_msg)
   end
   -- Enable / disable glow
   if nil ~= msg.switch then
+    changed = true
     if 0 == msg.switch then
-      changed = true
       node.name = 'new_glass:rgb_off'
     else
-      changed = true
       node.name = 'new_glass:rgb_on'
     end
   end
@@ -78,33 +101,6 @@ local handle_receive_fields = function(pos, formname, fields, sender)
     if fields.channel then meta:set_string('channel', fields.channel) end
 end
 
--- Override for unifieddyes implementation of on_dig,
--- because I was not able to use it.
-local on_dig_rgb = function(pos, node, digger)
-    -- No player - no drop
-    if not digger then return end
-    -- Cancel digging on protected nodes
-    local playername = digger:get_player_name()
-    local player_has_no_bypass = not minetest.check_player_privs(
-      playername, {protection_bypass=true}
-    )
-    if minetest.is_protected(pos, playername) and player_has_no_bypass then
-        minetest.record_protection_violation(pos, playername)
-        return
-    end
-    -- Retrieve metadata
-    local inv = digger:get_inventory()
-    -- luacheck: globals ItemStack
-    local item = ItemStack('new_glass:rgb_off')
-    -- Give player an item or drop it
-    if inv:room_for_item('main', item) then
-      inv:add_item('main', item)
-    else
-      minetest.item_drop(item, digger, pos)
-    end
-    minetest.remove_node(pos)
-end
-
 local register_rgb_glass = function(node_name, light_value)
   minetest.register_node(node_name, {
     description = 'RGB Glass',
@@ -126,7 +122,7 @@ local register_rgb_glass = function(node_name, light_value)
       ud_param2_colorable = 1
     },
     sounds = default.node_sound_glass_defaults(),
-    on_dig = on_dig_rgb,
+    drop = 'new_glass:rgb_off',
     light_source = light_value,
     -- Set formspec for digiline channel selection
     on_construct = handle_construct,
