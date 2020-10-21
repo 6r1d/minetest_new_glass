@@ -97,8 +97,14 @@ local handle_construct = function(pos)
 end
 
 local handle_receive_fields = function(pos, formname, fields, sender)
+    local name = sender:get_player_name()
     local meta = minetest.get_meta(pos)
-    if fields.channel then meta:set_string('channel', fields.channel) end
+    local owner = meta:get_string('owner')
+    if minetest.is_protected(pos, name) then
+      return
+    else
+      if fields.channel then meta:set_string('channel', fields.channel) end
+    end
 end
 
 local register_rgb_glass = function(node_name, light_value)
