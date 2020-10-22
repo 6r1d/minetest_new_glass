@@ -99,7 +99,6 @@ end
 local handle_receive_fields = function(pos, formname, fields, sender)
     local name = sender:get_player_name()
     local meta = minetest.get_meta(pos)
-    local owner = meta:get_string('owner')
     if minetest.is_protected(pos, name) then
       return
     else
