@@ -136,7 +136,7 @@ local register_rgb_glass = function(node_name, light_value)
     -- Digiline settings
     _digistuff_channelcopier_fieldname = 'channel',
     digiline = {
-    receptor = {},
+      receptor = {},
       wire = {
         rules = digiline_rules,
       },
