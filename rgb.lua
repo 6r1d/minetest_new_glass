@@ -57,9 +57,19 @@ local digiline_action = function(pos, node, channel, mixed_msg)
   end
   local changed = false
   -- Set color
-  if (msg.color ~= nil) and (type(msg.color) == 'string' or type(msg.color) == 'number') then
-    node.param2 = msg.color
-    changed = true
+  if nil ~= msg.color then
+    if 'number' == type(msg.color) then
+      if (0 <= msg.color) and (256 > msg.color) then
+        node.param2 = msg.color
+        changed = true
+      end
+    elseif 'string' == type(msg.color) then
+      local test_color = new_glass.colors[msg.color:lower()]
+      if nil ~= test_color then
+        node.param2 = test_color
+        changed = true
+      end
+    end
   end
   -- Enable / disable glow
   if nil ~= msg.switch then
