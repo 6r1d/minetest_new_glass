@@ -1,6 +1,6 @@
 -- created using:
 -- https://gist.github.com/SwissalpS/c3acbe88e3d800f6f5930a1ce0f8acc7
-new_glass.colours = {
+new_glass.colors = {
   ['faint_red'] = 0,
   ['#ffa0a0'] = 0,
   ['faint_vermilion'] = 1,

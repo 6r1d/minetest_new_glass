@@ -47,8 +47,8 @@ local digiline_action = function(pos, node, channel, mixed_msg)
       msg.switch = 0
     elseif 'reset' == s then
       msg.reset = 1
-    elseif nil ~= new_glass.colours[s] then
-      msg.color = new_glass.colours[s]
+    elseif nil ~= new_glass.colors[s] then
+      msg.color = new_glass.colors[s]
     end
   elseif 'table' == msg_type then
     msg = mixed_msg
