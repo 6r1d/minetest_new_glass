@@ -1,4 +1,4 @@
--- RGB glass block
+-- RGB glass node
 
 local digiline_rules = {
   {x =  1, y =  0, z =  0},
@@ -152,3 +152,4 @@ if minetest.get_modpath('unifieddyes') and minetest.get_modpath('digilines') the
   register_rgb_glass('new_glass:rgb_off', 0)
   register_rgb_glass('new_glass:rgb_on',  14)
 end
+
