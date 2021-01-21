@@ -1,4 +1,4 @@
--- RGB glass block
+-- RGB glass node
 
 local digiline_rules = {
   {x =  1, y =  0, z =  0},
@@ -47,9 +47,8 @@ local digiline_action = function(pos, node, channel, mixed_msg)
       msg.switch = 0
     elseif 'reset' == s then
       msg.reset = 1
-    --elseif '#' == s:sub(1, 1) then
-      -- TODO:
-      --msg.color = translatedColour(s)
+    elseif nil ~= new_glass.colors[s] then
+      msg.color = new_glass.colors[s]
     end
   elseif 'table' == msg_type then
     msg = mixed_msg
@@ -58,9 +57,19 @@ local digiline_action = function(pos, node, channel, mixed_msg)
   end
   local changed = false
   -- Set color
-  if (msg.color ~= nil) and (type(msg.color) == 'string' or type(msg.color) == 'number') then
-    node.param2 = msg.color
-    changed = true
+  if nil ~= msg.color then
+    if 'number' == type(msg.color) then
+      if (0 <= msg.color) and (256 > msg.color) then
+        node.param2 = msg.color
+        changed = true
+      end
+    elseif 'string' == type(msg.color) then
+      local test_color = new_glass.colors[msg.color:lower()]
+      if nil ~= test_color then
+        node.param2 = test_color
+        changed = true
+      end
+    end
   end
   -- Enable / disable glow
   if nil ~= msg.switch then
@@ -153,3 +162,4 @@ if minetest.get_modpath('unifieddyes') and minetest.get_modpath('digilines') the
   register_rgb_glass('new_glass:rgb_off', 0)
   register_rgb_glass('new_glass:rgb_on',  14)
 end
+
