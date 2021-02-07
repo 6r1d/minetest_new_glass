@@ -17,6 +17,23 @@ minetest.register_node("new_glass:ultra_steel_framed_obsidian_glass", {
   light_source = 15,
 })
 
+-- Node definition for a hard glowing walkable glass
+minetest.register_node("new_glass:ultra_steel_framed_walkable_glass", {
+  description = "Ultra Steel-framed Obsidian Glass (walkable)",
+  drawtype = "glasslike_framed",
+  tiles = {"steel_frame.png", "framedglass_glass_face_clean.png"},
+  paramtype = "light",
+  sunlight_propagates = true,
+  palette = "unifieddyes_palette_extended.png",
+  airbrush_replacement_node = "new_glass:ultra_steel_framed_obsidian_glass_tinted",
+  groups = {cracky = 3, oddly_breakable_by_hand = 3, ud_param2_colorable = 1},
+  sounds = default.node_sound_glass_defaults(),
+  on_dig = unifieddyes.on_dig,
+  walkable = false,
+  climbable = true,
+  light_source = 15,
+})
+
 -- Node definition for a hard glowing tinted glass
 minetest.register_node("new_glass:ultra_steel_framed_obsidian_glass_tinted", {
   description = "Ultra Steel-framed Obsidian Glass (tinted)",
@@ -67,5 +84,15 @@ minetest.register_craft({
   output = 'new_glass:ultra_steel_framed_obsidian_glass',
   recipe = {
     {'new_glass:super_steel_framed_obsidian_glass', 'default:meselamp'}
+  }
+})
+
+-- Walkable update
+minetest.register_craft({
+  output = 'new_glass:ultra_steel_framed_walkable_glass',
+  recipe = {
+    {'default:obsidian_shard','','default:obsidian_shard'},
+    {'','new_glass:ultra_steel_framed_obsidian_glass',''},
+    {'default:obsidian_shard','','default:obsidian_shard'},
   }
 })
