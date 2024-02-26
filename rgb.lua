@@ -129,6 +129,7 @@ local register_rgb_glass = function(node_name, light_value)
       oddly_breakable_by_hand = 3,
       ud_param2_colorable = 1
     },
+    is_ground_content = false,
     sounds = default.node_sound_glass_defaults(),
     drop = 'new_glass:rgb_off',
     light_source = light_value,
